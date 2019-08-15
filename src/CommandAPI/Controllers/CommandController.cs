@@ -1,6 +1,7 @@
 using System.Collections.Generic; 
 using Microsoft.AspNetCore.Mvc; 
 using CommandAPI.Models;
+using Microsoft.AspNetCore.Hosting;
 
 namespace CommandAPI.Controllers {    
      [Route("api/[controller]")]     
@@ -8,13 +9,15 @@ namespace CommandAPI.Controllers {
  public class CommandsController : ControllerBase   
   {        
        private readonly CommandContext _context;
-       public CommandsController(CommandContext context)
+        private IHostingEnvironment _hostEnv;
+       public CommandsController(CommandContext context,IHostingEnvironment hostEnv)
        {
             _context=context;
+            _hostEnv=hostEnv;
        }
        [HttpGet]     
       public ActionResult<IEnumerable<Command>> Get()        
-       { 
+       { Response.Headers.Add("Environment",_hostEnv.EnvironmentName);
             return _context.commandItems;      
     
          }   

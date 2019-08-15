@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using CommandAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Data.SqlClient;
 namespace CommandAPI
 {
     public class Startup
@@ -22,10 +23,13 @@ namespace CommandAPI
 
         public void ConfigureServices(IServiceCollection services)
         {
-             services.AddDbContext<CommandContext>(opt => opt.UseSqlServer  
-                  (Configuration.GetConnectionString("CommandAPISQLConection"))); 
+             var builder = new SqlConnectionStringBuilder();    
+             builder.ConnectionString = Configuration.GetConnectionString("CommandAPISQLConection");          
+            builder.UserID = Configuration["UserID"];           
+            builder.Password = Configuration["Password"]; 
  
-            services.AddMvc();
+            services.AddDbContext<CommandContext>(opt => opt.UseSqlServer(builder.ConnectionString)); 
+             services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
