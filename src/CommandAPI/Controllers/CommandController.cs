@@ -26,7 +26,7 @@ namespace CommandAPI.Controllers
 
         }
         [HttpGet("{id}")]
-
+    //We will remove this after production
         public ActionResult<Command> Get(int id)
         {
             var result = _context.commandItems.Find(id);
