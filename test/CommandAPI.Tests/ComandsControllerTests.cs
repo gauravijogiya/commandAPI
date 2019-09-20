@@ -53,7 +53,7 @@ namespace CommandAPI.Tests
             //Act
             var result = Controller.Get();
             //Assert
-            Assert.Empty(result.Value);
+            Assert.NotEmpty(result.Value);
         }
 
         [Fact]
@@ -284,7 +284,7 @@ namespace CommandAPI.Tests
             //Act  
             var result = Controller.DeleteCommandItem(1);
             //Assert  
-            Assert.IsType<NotFoundObjectResult>(result.Result);
+            Assert.IsNotType<NotFoundObjectResult>(result.Result);
         }
 
 

@@ -15,9 +15,18 @@ variables:
 steps:
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
+<<<<<<< HEAD
 - task: DotNetCoreCLI@2
   inputs:
     command: publish
     publishWebProjects: True
     arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
     zipAfterPublish: True
+=======
+  
+- task: DotNetCoreCLI@2  
+  inputs:   
+    command: test    
+    projects: '**/*Tests/*.csproj'    
+    arguments: '--configuration $(buildConfiguration)'
+>>>>>>> 5474e9c5fa0668714bfbb825c53ce2e64576bf77
